@@ -8,13 +8,12 @@ Python + Scrapling 后端配合 rex 字幕模块。搜索按 IMDb ID 核对影�
 
 1. [Fork 此仓库](https://github.com/MakkaPakka518/SubHD/fork) 到自己的 GitHub 账户。
 2. [打开 Vercel](https://vercel.com/new)，选择 **Add New → Project**，导入刚刚 Fork 的仓库。Root Directory 保持仓库根目录。
-3. Framework Preset 选择 **Container**。平台会根据 Dockerfile 构建 Python、Chromium 和系统依赖。
+3. Application Preset 会由 `vercel.json` 自动设为 **Container**，保持默认即可。平台会根据 Dockerfile 构建 Python、Chromium 和系统依赖。
 4. 设置环境变量：
 
    | 名称 | 内容 |
    | --- | --- |
    | `API_TOKEN` | 自己设置的至少 6 字符管理口令 |
-   | `VERCEL_SUPPORT_LARGE_FUNCTIONS` | `1`，启用大体积函数支持 |
 
 5. 部署完成后打开 Vercel 提供的正式域名，它就是管理面板。
 6. 输入管理口令登录，点击 **复制模块链接**。
@@ -22,7 +21,9 @@ Python + Scrapling 后端配合 rex 字幕模块。搜索按 IMDb ID 核对影�
 
 管理面板提供运行状态、模块链接、`.js` 文件下载、缓存状态和清空缓存。模块使用独立访问凭据，不包含管理口令；模块链接应只分享给允许使用此实例的人。
 
-当前 Vercel Container Runtime 和 Large Functions 为 Beta。需要目标账户支持这两个功能；Hobby 额度内可使用，函数最大 2 GB 内存、300 秒运行时间。构建镜像包含完整 Chromium，超过标准函数包体积，必须使用 Large Functions 路径。
+新建项目只需设置上表中的 `API_TOKEN`。不要在导入页面手动添加 `VERCEL_SUPPORT_LARGE_FUNCTIONS`；该界面会将其识别为系统变量并拒绝保存。若已经添加，点击该行右侧的减号删除后再部署。
+
+当前 Vercel Container Runtime 和 Large Functions 为 Beta。新项目按平台默认的大函数资格与配置部署；实际是否满足镜像体积要求以构建结果为准。Hobby 额度内可使用，函数最大 2 GB 内存、300 秒运行时间。构建镜像包含完整 Chromium，超过标准函数包体积，需要平台支持大体积容器函数。
 
 如果模块导入或接口访问出现 Vercel 登录页面，检查项目的 Deployment Protection，并使用可供 rex 访问的正式部署地址。
 
