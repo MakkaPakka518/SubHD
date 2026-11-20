@@ -1,0 +1,31 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Test rex widget
+        run: node tests/test_widget.cjs
+      - name: Build browser backend
+        run: docker build -t subhd-forward .
+      - name: Test API and browser flow
+        run: >-
+          docker run --rm --memory=2g --cpus=1
+          -v "$PWD/tests:/app/tests:ro" subhd-forward
+          sh -c 'pip install --quiet httpx==0.28.1 && python -m unittest discover -s tests -v'
+      - name: Test desktop and mobile panel
+        run: >-
+          docker run --rm --memory=2g --cpus=1
+          -v "$PWD/tests:/app/tests:ro" subhd-forward
+          python tests/check_panel.py

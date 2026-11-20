@@ -1,0 +1,4 @@
+scrapling[fetchers]==0.5.1
+fastapi==0.165.0
+uvicorn==0.54.0
+libarchive-c==5.3
