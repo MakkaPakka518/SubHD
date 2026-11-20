@@ -115,7 +115,7 @@ Button background, border and press transitions last 160ms. Pressed buttons and 
 
 ### Login
 
-The password input has a persistent label, associated hint/error, native required validation and a 24-character minimum. It uses `autocomplete="current-password"`, with capitalization and spellcheck disabled. The visibility button switches its accessible label and `aria-pressed` state. Missing server configuration reveals the API_TOKEN setup note.
+The password input has a persistent label, associated hint/error, native required validation and a 6-character minimum. It uses `autocomplete="current-password"`, with capitalization and spellcheck disabled. The visibility button switches its accessible label and `aria-pressed` state. Missing server configuration reveals the API_TOKEN setup note.
 
 Submitting disables the login button and changes its label to “正在登录…”. Success reveals the workspace/header actions and focuses the copy button. Logout clears the displayed module URL and password, then focuses the password input. Failed login and request errors use inline alert messages; recent download errors use the same visual error treatment.
 

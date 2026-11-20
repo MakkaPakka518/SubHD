@@ -10,7 +10,7 @@ from pathlib import Path
 
 from patchright.sync_api import sync_playwright
 
-TOKEN = "panel-test-token-not-a-secret-123456"
+TOKEN = "test6!"
 BASE = "http://127.0.0.1:8767"
 
 
@@ -40,6 +40,7 @@ def main(output):
                     errors = []
                     page.on("pageerror", lambda error: errors.append(str(error)))
                     page.goto(BASE)
+                    assert page.locator("#admin-token").get_attribute("minlength") == "6"
                     page.locator("#admin-token").fill("incorrect-token-long-enough-123")
                     page.locator("#login-submit").click()
                     page.locator("#login-error").wait_for(state="visible")

@@ -47,8 +47,8 @@ class SearchRequest(BaseModel):
 
 def api_token():
     value = os.environ.get("API_TOKEN", "")
-    if len(value) < 24:
-        raise HTTPException(503, "请设置至少 24 字符的 API_TOKEN 环境变量")
+    if len(value) < 6:
+        raise HTTPException(503, "请设置至少 6 字符的 API_TOKEN 环境变量")
     return value
 
 
@@ -118,7 +118,7 @@ def home():
 
 @app.get("/health")
 def health():
-    return {"ok": True, "configured": len(os.environ.get("API_TOKEN", "")) >= 24}
+    return {"ok": True, "configured": len(os.environ.get("API_TOKEN", "")) >= 6}
 
 
 @app.get("/widget.js")

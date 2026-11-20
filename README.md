@@ -6,14 +6,14 @@ Python + Scrapling 后端配合 rex 字幕模块。搜索按 IMDb ID 核对影�
 
 ## Fork → Vercel → 导入模块
 
-1. [Fork 此仓库](https://github.com/MakkaPakka518/SubHD-Forward/fork) 到自己的 GitHub 账户。
+1. [Fork 此仓库](https://github.com/MakkaPakka518/SubHD/fork) 到自己的 GitHub 账户。
 2. [打开 Vercel](https://vercel.com/new)，选择 **Add New → Project**，导入刚刚 Fork 的仓库。Root Directory 保持仓库根目录。
 3. Framework Preset 选择 **Container**。平台会根据 Dockerfile 构建 Python、Chromium 和系统依赖。
 4. 设置环境变量：
 
    | 名称 | 内容 |
    | --- | --- |
-   | `API_TOKEN` | 自己设置的至少 24 字符随机管理口令 |
+   | `API_TOKEN` | 自己设置的至少 6 字符管理口令 |
    | `VERCEL_SUPPORT_LARGE_FUNCTIONS` | `1`，启用大体积函数支持 |
 
 5. 部署完成后打开 Vercel 提供的正式域名，它就是管理面板。

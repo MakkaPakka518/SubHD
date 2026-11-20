@@ -14,7 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import app
 import subhd
 
-TOKEN = "test-token-not-a-secret-12345678"
+TOKEN = "test6!"
 SRT = b"1\n00:00:01,000 --> 00:00:02,000\nHello\n"
 
 
@@ -115,6 +115,14 @@ class ApiTests(unittest.TestCase):
             self.assertEqual(self.client.post("/api/search", json={"imdbId": "https://internal/"}, headers={"Authorization": "Bearer " + app.module_token()}).status_code, 422)
             self.assertEqual(self.client.post("/api/search", json={"imdbId": "tt4154796", "type": "tv"}, headers={"Authorization": "Bearer " + app.module_token()}).status_code, 422)
             search.assert_not_called()
+
+    def test_management_password_minimum_length(self):
+        for token, accepted in [("", False), ("12345", False), ("test6!", True), ("longer-password", True)]:
+            with self.subTest(length=len(token)), patch.dict(os.environ, {"API_TOKEN": token}):
+                self.assertEqual(self.client.get("/health").json()["configured"], accepted)
+                response = self.client.get("/api/admin/overview", headers={"Authorization": "Bearer " + token})
+                self.assertEqual(response.status_code, 200 if accepted else 503)
+        self.assertIn('minlength="6"', self.client.get("/").text)
 
     def test_search_ticket_and_download(self):
         with patch.object(subhd, "search", return_value=[{"sid": "Ab12Cd", "title": "Movie", "lang": "zh", "count": 2}]) as search:
